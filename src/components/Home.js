@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import {Link} from 'react-router-dom';
 
 class Home extends React.Component {
 
@@ -44,9 +45,32 @@ class Home extends React.Component {
                     {this.state.patientData.map(patient => <RowCreator item={patient}/>)}
                 </tbody>
             </table>
+            <br/>
+            <Link to={'/addPatient'}><font size="5">Register Patient</font></Link>
         </div>);
     }
 
+}
+
+
+class RowCreator extends React.Component {
+
+    render(){
+        /* Retrieve the patient that is passed into this component using
+           this.props.item 
+           
+           All of these field names are from the backend in Spring Boot.
+        */
+        var patient = this.props.item;
+        return  <tr>
+                    <td>{patient.id}</td>
+                    <td>{patient.firstName}</td>
+                    <td>{patient.lastName}</td>
+                    <td>{patient.age}</td> 
+                    <td><Link to={'/patientDetails/' + patient.id}>Add Patient Data</Link> </td>                    
+                    <td><Link to={'/analyze/' + patient.id}>Analyze Patient Data</Link> </td>                    
+                </tr>;
+    }
 }
 
 /* export out the component so that it can be used in other components */
