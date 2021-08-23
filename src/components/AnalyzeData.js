@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { Link } from 'react-router-dom';
 
 class AnalyzeData extends React.Component {
 
@@ -42,7 +43,7 @@ class TableCreator extends React.Component{
     render(){
         var eachEntry = this.props.item;
         var patientId = this.props.patientId;
-        
+
         return  <div>
                     <table>
                         <tr><td><b>{eachEntry.componentName}</b></td></tr>
@@ -50,6 +51,7 @@ class TableCreator extends React.Component{
                             <td>{eachEntry.componentName}</td>
                             <td>{eachEntry.componentValue}</td>
                             <td>{eachEntry.measuredDateTime}</td>
+                            <td><Link to={'/chart/' + eachEntry.componentName + '/' + patientId}><img src={require('../Logo.png')} height='20' width='20' /></Link></td>
                         </tr>
                         <tr></tr>
                     </table>
