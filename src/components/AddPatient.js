@@ -1,9 +1,19 @@
+import axios from 'axios';
 import React from 'react';
 
 class AddPatient extends React.Component {
 
-    handleSubmit(){
-
+    handleSubmit(event){
+        constant data = {
+            firstName: this.firstName,
+            lastName:  this.lastName,
+            age:       this.age
+        }
+        axios.post("/clinicalservices/api/patients/",data)
+            .then(response => {
+                /* event.preventDefault will not allow form to be submitted */
+                event.preventDefault();
+            })
     }
 
     render(){
