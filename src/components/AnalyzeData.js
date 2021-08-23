@@ -10,7 +10,7 @@ class AnalyzeData extends React.Component {
     componentWillMount(){
         axios.get("/clinicalservices/api/patients/analyze/" + this.props.match.params.patientId)
             .then(response => {
-
+                this.setState(response.data);
             })
     }
 
@@ -23,10 +23,38 @@ class AnalyzeData extends React.Component {
                     First Name: {this.state.firstName}
                     Last Name: {this.state.lastName}
                     Age: {this.state.age}
+                    <br/>
+                    <h2>Clinical Report:</h2>
+                    {this.state.clinicalData.map(eachEntry => <TableCreator item={eachEntry} patientId={this.state.id}/>)}
                 </div>);
     }
 
 }
+/* For each component there will be a separate table that is created */
+class TableCreator extends React.Component{
+        /* Retrieve the clinical data that is passed into this component using
+           this.props.item 
+           
+           All of these field names are from the backend in Spring Boot.
+        */
 
+
+    render(){
+        var eachEntry = this.props.item;
+        var patientId = this.props.patientId;
+        
+        return  <div>
+                    <table>
+                        <tr><td><b>{eachEntry.componentName}</b></td></tr>
+                        <tr>
+                            <td>{eachEntry.componentName}</td>
+                            <td>{eachEntry.componentValue}</td>
+                            <td>{eachEntry.measuredDateTime}</td>
+                        </tr>
+                        <tr></tr>
+                    </table>
+                </div>;
+    }
+}
 /* export out the component so that it can be used in other components */
 export default AnalyzeData;
