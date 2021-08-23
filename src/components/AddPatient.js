@@ -2,13 +2,17 @@ import axios from 'axios';
 import React from 'react';
 import {toast} from 'react-toastify';
 import 'react-toastify/dist/ReactToastify.css';
+import {Link} from 'react-router-dom';
 
 toast.configure();
 
 class AddPatient extends React.Component {
 
     handleSubmit(event){
-        constant data = {
+        /* event.preventDefault will not allow form to be submitted */
+        event.preventDefault();
+
+        const data = {
             firstName: this.firstName,
             lastName:  this.lastName,
             age:       this.age
@@ -16,8 +20,7 @@ class AddPatient extends React.Component {
         axios.post("/clinicalservices/api/patients/",data)
             .then(response => {
                 toast("Patient added successfully!", {autoClose:2000,position:toast.POSITION.BOTTOM_CENTER});
-                /* event.preventDefault will not allow form to be submitted */
-                event.preventDefault();
+                
             })
     }
 
@@ -32,8 +35,9 @@ class AddPatient extends React.Component {
                         Last Name: <input type="text" name="lastName" onChange={(event => this.lastName = event.target.value)}/>
                         Age: <input type="text" name="age" onChange={(event => this.age = event.target.value)}/>
                         <button onClick={this.handleSubmit.bind(this)}>Confirm</button>
-                       
                     </form>
+                    <br/>
+                    <Link to={'/'}>Go Back</Link>
                 </div>);
     }
 
