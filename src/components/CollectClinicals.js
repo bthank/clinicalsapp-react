@@ -1,5 +1,6 @@
 import React from 'react';
 import axios from 'axios';
+import { toast } from 'react-toastify';
 
 class CollectClinicals extends React.Component {
 
@@ -17,6 +18,16 @@ class CollectClinicals extends React.Component {
 
     handleSubmit(event){
         event.preventDefault();
+        const data= {
+            patientId: this.props.match.params.patientId,
+            componentName: this.componentName,
+            componentValue: this.componentValue
+        }
+
+        axios.post("/clinicalservices/api/clinicals/",data)
+            .then(response => {
+                toast("Patient data saved successfully!",{autoClose:3000,position: toast.POSITION.BOTTOM_CENTER});
+            })
 
 
     }
@@ -35,6 +46,7 @@ class CollectClinicals extends React.Component {
                     <form>
                         Clinical Entry Type: 
                         <select onChange={(event) => {this.componentName = event.target.value}}>
+                            <option>Select One</option>
                             <option value="bp">Blood Pressure(Sys/Dys)</option>
                             <option value="hw">Height/Weight</option>
                             <option value="heartrate">Heart Rate</option>
