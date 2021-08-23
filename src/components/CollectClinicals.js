@@ -14,6 +14,13 @@ class CollectClinicals extends React.Component {
             })
     }
 
+
+    handleSubmit(event){
+        event.preventDefault();
+
+
+    }
+
     render(){
         /* the code within the render return is JSX code which gets converted to HTML
         JSX is a syntax extension to JavaScript
@@ -23,8 +30,17 @@ class CollectClinicals extends React.Component {
                     First Name: {this.state.firstName}
                     Last Name: {this.state.lastName}
                     Age: {this.state.age}
+                    <br/>
+                    <h2>Patient Clinical Data:</h2>
                     <form>
-                        
+                        Clinical Entry Type: 
+                        <select onChange={(event) => {this.componentName = event.target.value}}>
+                            <option value="bp">Blood Pressure(Sys/Dys)</option>
+                            <option value="hw">Height/Weight</option>
+                            <option value="heartrate">Heart Rate</option>
+                        </select>
+                        Value: <input type="text" name="componentValue" onChange={(event) => {this.componentValue = event.target.value}}/>
+                        <button onClick={this.handleSubmit.bind(this)}>Confirm</button>
                     </form>
                  </div>);
     }
