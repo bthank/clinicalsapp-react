@@ -14,7 +14,7 @@ class Home extends React.Component {
     }
 
     componentWillMount(){
-        axios.get('localhost:8080/clinicalservices/api/patients/')
+        axios.get('/clinicalservices/api/patients/')
             .then(response => {
                 /* response.data will give us the JSON data that comes back from
                    the axios REST call.  We will then set state to that data. */
